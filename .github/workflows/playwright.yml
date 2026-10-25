@@ -17,5 +17,13 @@ jobs:
         run: npm install
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run API tests
-        run: npx playwright test tests/api/users.api.spec.ts
+      - name: Create Kubernetes Cluster
+        run: kind create cluster
+      - name: Deploy Microservices
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/main/release/kubernetes-manifests.yaml
+          kubectl wait --for=condition=available --timeout=500s deployment/frontend
+      - name: Expose Application
+        run: kubectl port-forward deployment/frontend 8080:8080 &
+      - name: Run Test Suite
+        run: npx playwright test
