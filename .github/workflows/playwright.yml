@@ -25,3 +25,13 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 7
+    - name: Run API tests
+      env:
+        API_BASE_URL: https://reqres.in
+      run: npx playwright test tests/api/users.api.spec.ts
+
+
+
+
+
+        
