@@ -3,6 +3,9 @@ import {test, expect} from '@playwright/test';
 test('POST /api/users should successfully create user and return 201 Created', async ({ request }) => {
     
     const response = await request.post(`${process.env.API_BASE_URL}/api/users`, {
+      headers: {
+        'Authorization': '' 
+      },
       data: {
         name: 'Siddhu Affiliate',
         job: 'SDET'
