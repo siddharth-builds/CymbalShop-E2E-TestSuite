@@ -25,6 +25,12 @@ jobs:
           kubectl wait --for=condition=available --timeout=500s deployment/frontend
       - name: Expose Application
         run: kubectl port-forward deployment/frontend 8080:8080 &
+      - name: Wait for Microservices Mesh
+        run: |
+          until [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080)" == "200" ]; do
+            echo "Waiting for gRPC mesh to stabilize..."
+            sleep 5
+          done
       - name: Run Test Suite
         run: npx playwright test
       - name: Upload Playwright Report
