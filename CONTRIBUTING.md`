@@ -1,0 +1,25 @@
+# Contributing to Boutique QA Engine
+
+Thank you for your interest in contributing! Whether it's reporting a bug, improving test coverage, or enhancing documentation, contributions are always welcome.
+
+## How to Contribute
+
+1. **Fork the Repository** and clone your fork locally.
+2. **Create a Branch** for your feature or bug fix:
+   ```bash
+   git checkout -b feature/amazing-feature
+3.1. Install Dependencies & Run Tests:
+     Ensure everything passes locally before submitting changes:
+       ```bash
+       npm ci
+       npx playwright test
+3.2 Commit Your Changes:
+     Follow conventional commit standards (e.g., feat(ui): add cart checkout validation).
+
+3.3 Push to Your Branch & Open a Pull Request.
+
+4. Click the green **Commit changes...** button.
+
+---
+
+<FollowUp label="Would you like help creating a standard issue template or pull request template next?" query="How do I add issue templates and pull request templates to my GitHub repository?"/>
