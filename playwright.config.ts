@@ -1,5 +1,5 @@
 import { defineConfig } from '@playwright/test';
-import * as dotenv from 'dotenv'; 
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -8,9 +8,7 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:8080',
     trace: 'on-first-retry',
-    extraHTTPHeaders: {
-      'Authorization': `Bearer ${process.env.API_TOKEN}`
-    }
+    // Removed global extraHTTPHeaders so public APIs like ReqRes won't receive the mock token
   },
   reporter: 'html',
 });
