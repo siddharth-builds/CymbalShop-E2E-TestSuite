@@ -43,4 +43,5 @@ If you want to pull this down and run it on your own machine:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/siddharth-builds/boutique-qa-engine.gitcd](https://github.com/siddharth-builds/boutique-qa-engine.gitcd) boutique-qa-engine
+   git clone https://github.com/siddharth-builds/boutique-qa-engine.git
+   cd boutique-qa-engine
