@@ -21,3 +21,18 @@ for (const product of products) {
 
   })
 }
+
+test('Empty Cart state resets item count to zero', async ({ page }) => {
+  const homePage = new HomePage(page);
+  const productPage = new ProductPage(page);
+  const cartPage = new CartPage(page);
+
+  // Dynamically select a random product from your array
+  const randomProduct = products[Math.floor(Math.random() * products.length)];
+  await homePage.navigate();
+  await homePage.selectProduct(randomProduct);
+  await productPage.addToCart();
+  
+  await cartPage.emptyCart();
+  await cartPage.verifyCartIsEmpty();
+});

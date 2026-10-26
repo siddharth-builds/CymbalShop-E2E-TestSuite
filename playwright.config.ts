@@ -12,4 +12,5 @@ export default defineConfig({
       'Authorization': `Bearer ${process.env.API_TOKEN}`
     }
   },
+  reporter: 'html',
 });
