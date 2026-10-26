@@ -6,7 +6,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      API_BASE_URL: https://reqres.in
+      REQRES_BASE_URL: https://reqres.in
       API_TOKEN: sdet_portfolio_mock_token
     steps:
       - uses: actions/checkout@v4
