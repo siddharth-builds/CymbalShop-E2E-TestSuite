@@ -1,8 +1,14 @@
-import {test, expect} from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-test('POST /api/users should successfully create user and return 201 Created', async ({ request }) => {
-    
-    const response = await request.post(`${process.env.API_BASE_URL}/api/users`, {
+test.describe('Cymbal Shop - Users API Validation', () => {
+  test('GET /users should return valid response', async ({ request }) => {
+    const response = await request.get(`/users`);
+    expect(response.status()).toBe(200);
+  });
+
+  test('POST /api/users should successfully create user and return 201 Created', async ({ request }) => {
+    // Drop process.env and use the relative path
+    const response = await request.post(`/api/users`, {
       headers: {
         'Authorization': '' 
       },
@@ -17,5 +23,5 @@ test('POST /api/users should successfully create user and return 201 Created', a
     expect(user.name).toBe('Siddhu Affiliate');
     expect(user.job).toBe('SDET');
     expect(user.id).toBeDefined();
-
+  });
 });
