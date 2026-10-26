@@ -1,23 +1,22 @@
+// tests/api/users.api.spec.ts
 import { test, expect } from '@playwright/test';
+import { UsersApiClient } from './UsersApiClient';
 
-test.describe('Cymbal Shop - Users API Validation', () => {
-  test('GET /users should return valid response', async ({ request }) => {
-    const response = await request.get(`/users`);
+test.describe('External API Validation (ReqRes)', () => {
+  let usersApi: UsersApiClient;
+
+  test.beforeEach(({ request }) => {
+    usersApi = new UsersApiClient(request);
+  });
+
+  test('GET /api/users should return valid response', async () => {
+    const response = await usersApi.getUsers();
     expect(response.status()).toBe(200);
   });
 
-  test('POST /api/users should successfully create user and return 201 Created', async ({ request }) => {
-    // Drop process.env and use the relative path
-    const response = await request.post(`/api/users`, {
-      headers: {
-        'Authorization': '' 
-      },
-      data: {
-        name: 'Siddhu Affiliate',
-        job: 'SDET'
-      }
-    });
-
+  test('POST /api/users should successfully create user and return 201 Created', async () => {
+    const response = await usersApi.createUser('Siddhu Affiliate', 'SDET');
+    
     expect(response.status()).toBe(201);
     const user = await response.json();
     expect(user.name).toBe('Siddhu Affiliate');
