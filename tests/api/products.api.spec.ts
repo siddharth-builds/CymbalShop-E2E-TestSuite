@@ -1,6 +1,6 @@
 // tests/api/products.api.spec.ts
 import { test, expect } from '@playwright/test';
-import { ProductsApiClient } from './productsApiClient';
+import { ProductsApiClient } from './ProductsApiClient';
 
 test.describe('Cymbal Shop - Native API Validation', () => {
   let apiClient: ProductsApiClient;
