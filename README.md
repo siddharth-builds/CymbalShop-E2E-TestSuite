@@ -23,7 +23,25 @@ I prioritized clean, maintainable code structures over quick-and-dirty scripts. 
 - **API Object Model:** Implemented a service client pattern (`ProductsApiClient`, `UsersApiClient`) to wrap Playwright's `APIRequestContext`. This isolates HTTP routing and headers from the test logic, allowing test suites to cleanly execute native HTTP requests against internal microservices without touching the browser.
 
 ---
+├── .github/workflows/       # GitHub Actions CI/CD pipeline definitions
+├── pages/                   # Page Object Model (POM) classes
+│   ├── CartPage.ts          # Cart interaction abstractions
+│   ├── HomePage.ts          # Global navigation and layout
+│   └── ProductPage.ts       # Product selection and details
+├── tests/
+│   ├── api/                 # API Object Model & Native API Tests
+│   │   ├── ProductsApiClient.ts
+│   │   ├── UsersApiClient.ts
+│   │   ├── products.api.spec.ts
+│   │   └── users.api.spec.ts
+│   ├── cart.spec.ts         # Stateful cart manipulation tests
+│   ├── currency.spec.ts     # Global navigation and state retention
+│   ├── e2e-checkout.spec.ts # Full revenue-path validation
+│   └── smoke.spec.ts        # Critical path health checks
+├── playwright.config.ts     # Core framework execution configuration
+└── package.json             # Dependencies and NPM scripts
 
+---
 ## 🧪 Core Test Coverage
 The test suites are designed to validate actual business logic and edge cases, not just happy paths:
 
