@@ -54,13 +54,17 @@ The test suites are designed to validate actual business logic and edge cases, n
 ---
 
 ## 🚀 CI/CD & Cloud Execution
-The framework is fully integrated with GitHub Actions to ensure nothing merges if it breaks the build. The pipeline is designed for speed and reliability:
-1. Provisions an ephemeral local Kubernetes cluster using `kind` (Kubernetes in Docker).
-2. Deploys the multi-container Cymbal Shop application.
-3. Implements polling to wait for cluster readiness.
-4. Leverages heavy caching for npm dependencies and Playwright browser binaries to minimize execution time.
-5. Executes parallelized UI and API test suites.
-6. Automatically uploads Playwright HTML trace reports as pipeline artifacts.
+The framework integrates seamlessly with GitHub Actions to enforce a strict "shift-left" testing strategy, gating pull requests to ensure regressions never reach production. The pipeline architecture is optimized for speed, reliability, and zero-dependency execution:
+
+Ephemeral Infrastructure: Programmatically provisions an isolated, multi-container Kubernetes cluster (kind) on the fly, ensuring clean, repeatable test runs without environment contamination.
+
+Smart Orchestration: Implements dynamic readiness polling to guarantee all distributed microservices are fully healthy before initiating the test suite.
+
+Pipeline Optimization: Leverages aggressive caching strategies for NPM dependencies and Playwright browser binaries to drastically reduce execution time and compute costs.
+
+High-Throughput Execution: Runs UI and native API test suites in parallel, minimizing the feedback loop for developers.
+
+Automated Triage Artifacts: Upon any failure, automatically generates and uploads interactive Playwright HTML trace reports as pipeline artifacts, allowing engineers to instantly replay the exact point of failure.
 
 ---
 
