@@ -1,10 +1,64 @@
-# Contributing to Boutique QA Engine
+# Contributing to CymbalShop E2E Test Suite
 
-Thank you for your interest in contributing! Whether it's reporting a bug, improving test coverage, or enhancing documentation, contributions are always welcome.
+Thank you for your interest in contributing to this project. We welcome bug reports, test improvements, documentation updates, and feature enhancements.
 
 ## How to Contribute
 
-1. **Fork the Repository** and clone your fork locally.
-2. **Create a Branch** for your feature or bug fix:
+You can contribute in several ways:
+
+- Report bugs or issues
+- Improve or add end-to-end test coverage
+- Fix failing tests
+- Improve documentation
+- Suggest or implement product improvements
+
+## Getting Started
+
+1. Fork the repository and clone your fork locally.
+2. Create a branch for your work:
    ```bash
-   git checkout -b feature/amazing-feature
+   git checkout -b feature/your-change-name
+3. Set up the project dependencies by following the instructions in the README.
+4 .Make your changes and validate them locally before opening a pull request.
+
+## Development Workflow
+Before submitting a change:
+
+-Keep your changes focused and scoped to one issue or feature.
+-Write or update tests for behavioral changes.
+-Follow the existing code style and naming conventions.
+-Remove debug code and keep the changes clean.
+-Update documentation when behavior changes.
+
+## Running Tests
+Use the project’s standard validation commands before submitting your PR. For example:
+
+```bash
+npm install
+npm test
+If the repo uses Playwright or another E2E framework, run the relevant test command as documented in the README, for example:
+
+```bash
+npx playwright test
+
+## Pull Request Guidelines
+When opening a pull request:
+
+-Include a clear title and description of the change
+-Reference the issue being addressed, if applicable
+-Explain the reason for the change and any trade-offs
+-Include screenshots or test output when relevant
+-Ensure all relevant checks pass before requesting review
+
+## Code Review
+Contributions will be reviewed for:
+
+-correctness
+-test coverage
+-readability
+-maintainability
+-alignment with the project goals
+We appreciate your time and effort in improving the project.
+
+## Questions?
+If you have questions, feel free to open an issue or reach out through the project communication channels.
