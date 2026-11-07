@@ -1,9 +1,9 @@
 # Microservices E2E Automation Engine
 [![Playwright Tests](https://github.com/siddharth-builds/boutique-qa-engine/actions/workflows/playwright.yml/badge.svg)](https://github.com/siddharth-builds/boutique-qa-engine/actions/workflows/playwright.yml)
 
-Hi, I'm Siddharth! I built this test automation framework to validate the Google Cloud Online Boutique (Cymbal Shop), a cloud-native microservices demo application. Testing a basic static website is easy, but I wanted to build a portfolio piece that proves I can handle real-world, distributed architectures.
+A production-grade test automation framework engineered to validate the Google Cloud Online Boutique (Cymbal Shop). This suite protects revenue-critical flows by validating distributed UI state, internal API endpoints, and database interactions against an ephemeral Kubernetes cluster.
 
-Instead of just checking if elements are visible on a screen, this framework interacts with backend-driven state changes, bypasses frontend validation to hit native APIs directly, and runs against a live, ephemeral Kubernetes cluster spun up entirely within a CI/CD pipeline.
+Designed for maintainability and speed, it leverages Page Object Models (POM), API Clients, and fully containerized CI/CD execution to catch microservice regressions before they hit production.
 
 ---
 
