@@ -1,85 +1,247 @@
-# Microservices E2E Automation Engine
-[![Playwright Tests](https://github.com/siddharth-builds/boutique-qa-engine/actions/workflows/playwright.yml/badge.svg)](https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite/actions/workflows/playwright.yml)
+# CymbalShop E2E Test Suite
 
-A production-grade test automation framework engineered to validate the Google Cloud Online Boutique (Cymbal Shop). This suite protects revenue-critical flows by validating distributed UI state, internal API endpoints, and database interactions against an ephemeral Kubernetes cluster.
+[![Playwright Tests](https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite/actions/workflows/playwright.yml/badge.svg)](https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite/actions/workflows/playwright.yml)
 
-Designed for maintainability and speed, it leverages Page Object Models (POM), API Clients, and fully containerized CI/CD execution to catch microservice regressions before they hit production.
+A production-grade Playwright and TypeScript automation suite designed to validate the Google Cloud Online Boutique (Cymbal Shop) across real end-to-end user journeys, API behavior, and distributed microservice interactions.
 
----
-
-## 🛠️ The Tech Stack
-- **Framework:** Playwright & TypeScript
-- **Runtime:** Node.js 24
-- **Infrastructure:** Docker, Kubernetes (Kind), kubectl
-- **CI/CD:** GitHub Actions
-- **Configuration:** dotenv for environment parity
+This project was built to catch regressions before they reach production by testing revenue-critical flows, session consistency, pricing logic, and service-to-service behavior in an isolated Kubernetes-based environment.
 
 ---
 
-## 🏗️ Architecture & Design Patterns
-I prioritized clean, maintainable code structures over quick-and-dirty scripts. If the UI or the backend routes change, the framework only requires updates in one centralized location.
+## Why this project exists
 
-- **Page Object Model (POM):** Abstracted all UI locators and user interactions into dedicated `HomePage`, `ProductPage`, and `CartPage` classes. This keeps test specs highly readable and purely focused on assertions.
-- **API Object Model:** Implemented a service client pattern (`ProductsApiClient`, `UsersApiClient`) to wrap Playwright's `APIRequestContext`. This isolates HTTP routing and headers from the test logic, allowing test suites to cleanly execute native HTTP requests against internal microservices without touching the browser.
+Modern e-commerce experiences are backed by many moving parts: product catalogs, carts, pricing services, checkout flows, and user state. This suite helps verify that those systems work together correctly.
+
+It focuses on:
+- End-to-end purchase validation
+- Stateful cart logic and persistence
+- Currency and pricing integrity
+- API-driven service validation
+- CI-gated regression prevention
 
 ---
+
+## Tech stack
+
+- Playwright
+- TypeScript
+- Node.js 24
+- Docker
+- Kubernetes with Kind
+- kubectl
+- GitHub Actions
+- dotenv
+
+---
+
+## Architecture and design patterns
+
+This framework is intentionally structured for maintainability and scale. Instead of embedding logic into test specs, responsibilities are split across reusable layers:
+
+- Page Object Model (POM): UI selectors and interaction flows are isolated in page classes.
+- API Object Model: HTTP logic is wrapped in dedicated API clients.
+- Environment configuration: settings are externalized to keep local and CI behavior aligned.
+- CI-first execution: tests run in a containerized, ephemeral cluster to improve reproducibility.
+
+```mermaid
+flowchart LR
+    A[Playwright Test Runner] --> B[Page Objects]
+    A --> C[API Clients]
+    B --> D[Cymbal Shop UI]
+    C --> E[Local Kubernetes Services]
+    A --> F[GitHub Actions]
+    F --> G[Kind Cluster]
+    G --> H[Artifacts / Playwright Traces]
 ```
-├── .github/workflows/       # GitHub Actions CI/CD pipeline definitions
-├── pages/                   # Page Object Model (POM) classes
-│   ├── CartPage.ts          # Cart interaction abstractions
-│   ├── HomePage.ts          # Global navigation and layout
-│   └── ProductPage.ts       # Product selection and details
+
+---
+
+## Repository structure
+
+```text
+.
+├── .github/
+│   └── workflows/                 # CI pipeline definitions
+├── pages/                        # Page Object Model classes
+│   ├── CartPage.ts
+│   ├── HomePage.ts
+│   └── ProductPage.ts
 ├── tests/
-│   ├── api/                 # API Object Model & Native API Tests
+│   ├── api/                      # API client and native API tests
 │   │   ├── ProductsApiClient.ts
 │   │   ├── UsersApiClient.ts
 │   │   ├── products.api.spec.ts
 │   │   └── users.api.spec.ts
-│   ├── cart.spec.ts         # Stateful cart manipulation tests
-│   ├── currency.spec.ts     # Global navigation and state retention
-│   ├── e2e-checkout.spec.ts # Full revenue-path validation
-│   └── smoke.spec.ts        # Critical path health checks
-├── playwright.config.ts     # Core framework execution configuration
-└── package.json             # Dependencies and NPM scripts
+│   ├── cart.spec.ts             # Stateful cart validation
+│   ├── currency.spec.ts         # Currency and session retention checks
+│   ├── e2e-checkout.spec.ts     # Full checkout journey
+│   └── smoke.spec.ts            # Critical-path smoke checks
+├── .env.example                  # Example environment config
+├── playwright.config.ts         # Playwright configuration
+├── package.json                 # Dependencies and scripts
+├── README.md                    # Project documentation
+└── tsconfig.json
 ```
----
-## Business Impact 
-The test suites are designed to validate actual business logic and edge cases, not just happy paths:
-
-- **Revenue Protection (E2E Checkout):** Automates the complete buying journey, handling complex forms and Luhn-valid credit card processing to ensure the paymentservice never blocks a sale.
-- **Session Reliability (Stateful Cart):** Data-driven parameterized tests inject products, validate dynamic shipping calculations, and confirm precise state purging by the cartservice.
-- **Localization Integrity (Currency Conversion):** Validates that UI pricing symbols dynamically update (USD to EUR to JPY) without dropping user sessions across the currencyservice.
-- **Shift-Left API Testing:** Directly hits internal Kubernetes endpoints (localhost:8080) to validate JSON/HTML responses, proving routing logic works independently of UI rendering.
 
 ---
 
-## 🚀 CI/CD & Cloud Execution
-The framework integrates seamlessly with GitHub Actions to enforce a strict "shift-left" testing strategy, gating pull requests to ensure regressions never reach production. The pipeline architecture is optimized for speed, reliability, and zero-dependency execution:
+## Business impact
 
-- Ephemeral Infrastructure: Programmatically provisions an isolated, multi-container Kubernetes cluster (kind) on the fly, ensuring clean, repeatable test runs without environment contamination.
- 
-- Smart Orchestration: Implements dynamic readiness polling to guarantee all distributed microservices are fully healthy before initiating the test suite.
+The suite is designed to validate real business behavior, not just happy-path rendering.
 
-- Pipeline Optimization: Leverages aggressive caching strategies for NPM dependencies and Playwright browser binaries to drastically reduce execution time and compute costs.
+- Revenue Protection: verifies the end-to-end checkout flow, including card validation and purchase completion
+- Session Reliability: ensures cart state and pricing remain consistent across user interactions
+- Localization Integrity: validates dynamic price symbols and region-specific behavior
+- Shift-Left API Validation: checks backend routes and responses without relying solely on browser rendering
 
-- High-Throughput Execution: Runs UI and native API test suites in parallel, minimizing the feedback loop for developers.
-
-- Automated Triage Artifacts: Upon any failure, automatically generates and uploads interactive Playwright HTML trace reports as pipeline artifacts, allowing engineers to instantly replay the exact point of failure.
+These tests are intended to reduce the risk of customer-facing regressions in a distributed system.
 
 ---
 
-## 📋 Prerequisites
-Before running this project locally, ensure you have the following installed:
-- [Node.js (v24+ empfohlen)](https://nodejs.org/)
-- [Docker Desktop](https://www.docker.com/) (running and active)
-- [Kind (Kubernetes in Docker)](https://kind.sigs.k8s.io/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+## Prerequisites
+
+Before running the suite locally, make sure the following are installed and working:
+
+- Node.js 24+
+- Docker Desktop
+- Kind
+- kubectl
 
 ---
 
-## 💻 Local Setup & Execution
+## Quick start
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite.git](https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite.git)
-   cd CymbalShop-E2E-TestSuite
+Clone the repository:
+
+```bash
+git clone https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite.git
+cd CymbalShop-E2E-TestSuite
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Install Playwright browsers:
+
+```bash
+npx playwright install --with-deps
+```
+
+Start the required local services or environment setup if your project relies on the Kind cluster or Dockerized app stack.
+
+Run the smoke suite:
+
+```bash
+npx playwright test --grep "@smoke"
+```
+
+Or run the full suite:
+
+```bash
+npx playwright test
+```
+
+> If the project defines custom package scripts in `package.json`, prefer those for the repo’s supported workflow.
+
+---
+
+## Local execution workflow
+
+A typical local test flow looks like this:
+
+1. Start Docker
+2. Provision the local Kubernetes environment
+3. Wait for all services to report healthy
+4. Run targeted smoke tests
+5. Run the broader UI/API suite
+6. Review Playwright reports and traces on failure
+
+This setup helps ensure the suite mirrors the conditions under which real microservice behavior is validated.
+
+---
+
+## CI/CD and automation
+
+The project is built for automated validation in GitHub Actions. The pipeline is designed to:
+
+- Provision an isolated kind cluster
+- Wait for service readiness
+- Execute smoke and integration tests
+- Capture failure artifacts
+- Upload Playwright HTML reports and traces for debugging
+- Enforce quality gates before release
+
+This approach reduces flakiness, improves reproducibility, and accelerates feedback for developers.
+
+---
+
+## Testing approach
+
+The framework combines multiple test layers:
+
+- UI tests using Playwright
+- API tests using native request contexts
+- State-based validation for carts and sessions
+- Cross-service checks for pricing and checkout logic
+
+This layered approach makes it easier to determine whether a failure is caused by:
+- UI rendering
+- backend response shape
+- service orchestration
+- state persistence issues
+
+---
+
+## Troubleshooting
+
+Common issues you may encounter:
+
+### Docker or Kubernetes is not running
+Ensure Docker Desktop is started and the local engine is healthy before creating any cluster resources.
+
+### Kind cluster is not ready
+Wait for services to finish bootstrapping before executing browser tests. You may need to retry or inspect cluster health with `kubectl`.
+
+### Playwright browsers are missing
+Run:
+
+```bash
+npx playwright install
+```
+
+### Test environment variables are not loaded
+Check your `.env` file or config setup and confirm all required values are present.
+
+### Failures show as flaky or timing-related
+Verify:
+- service readiness
+- cluster health
+- expected mock or backend data state
+- test isolation and cleanup between runs
+
+---
+
+## Contributing
+
+Contributions are welcome. If you are extending the framework:
+
+- keep tests readable and focused
+- prefer reusing page objects and API clients
+- isolate environment-specific logic
+- add clear assertions around business behavior
+- preserve deterministic test setup and teardown
+
+---
+
+## License
+
+This project is provided for testing and automation use within the repository context. Add a license file if you want to define explicit usage terms for broader distribution.
+
+---
+
+## Summary
+
+This repository is a practical, test-first validation layer for a microservices-based storefront. It gives you a reliable way to catch regressions in user flows, backend contract behavior, and distributed state transitions before they affect customers.
