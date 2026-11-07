@@ -56,15 +56,15 @@ The test suites are designed to validate actual business logic and edge cases, n
 ## 🚀 CI/CD & Cloud Execution
 The framework integrates seamlessly with GitHub Actions to enforce a strict "shift-left" testing strategy, gating pull requests to ensure regressions never reach production. The pipeline architecture is optimized for speed, reliability, and zero-dependency execution:
 
-- **Ephemeral Infrastructure: **Programmatically provisions an isolated, multi-container Kubernetes cluster (kind) on the fly, ensuring clean, repeatable test runs without environment contamination.
+- Ephemeral Infrastructure: Programmatically provisions an isolated, multi-container Kubernetes cluster (kind) on the fly, ensuring clean, repeatable test runs without environment contamination.
+ 
+- Smart Orchestration: Implements dynamic readiness polling to guarantee all distributed microservices are fully healthy before initiating the test suite.
 
-- **Smart Orchestration: **Implements dynamic readiness polling to guarantee all distributed microservices are fully healthy before initiating the test suite.
+- Pipeline Optimization: Leverages aggressive caching strategies for NPM dependencies and Playwright browser binaries to drastically reduce execution time and compute costs.
 
-- **Pipeline Optimization: **Leverages aggressive caching strategies for NPM dependencies and Playwright browser binaries to drastically reduce execution time and compute costs.
+- High-Throughput Execution: Runs UI and native API test suites in parallel, minimizing the feedback loop for developers.
 
-- **High-Throughput Execution: **Runs UI and native API test suites in parallel, minimizing the feedback loop for developers.
-
-- **Automated Triage Artifacts: **Upon any failure, automatically generates and uploads interactive Playwright HTML trace reports as pipeline artifacts, allowing engineers to instantly replay the exact point of failure.
+- Automated Triage Artifacts: Upon any failure, automatically generates and uploads interactive Playwright HTML trace reports as pipeline artifacts, allowing engineers to instantly replay the exact point of failure.
 
 ---
 
