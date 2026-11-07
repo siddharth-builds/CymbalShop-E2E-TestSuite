@@ -77,5 +77,5 @@ Before running this project locally, ensure you have the following installed:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/siddharth-builds/boutique-qa-engine.git](https://github.com/siddharth-builds/boutique-qa-engine.git)
-   cd boutique-qa-engine
+   git clone [https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite.git](https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite.git)
+   cd CymbalShop-E2E-TestSuite
