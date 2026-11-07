@@ -1,5 +1,5 @@
 # Microservices E2E Automation Engine
-[![Playwright Tests](https://github.com/siddharth-builds/boutique-qa-engine/actions/workflows/playwright.yml/badge.svg)](https://github.com/siddharth-builds/boutique-qa-engine/actions/workflows/playwright.yml)
+[![Playwright Tests](https://github.com/siddharth-builds/boutique-qa-engine/actions/workflows/playwright.yml/badge.svg)](https://github.com/siddharth-builds/CymbalShop-E2E-TestSuite/actions/workflows/playwright.yml)
 
 A production-grade test automation framework engineered to validate the Google Cloud Online Boutique (Cymbal Shop). This suite protects revenue-critical flows by validating distributed UI state, internal API endpoints, and database interactions against an ephemeral Kubernetes cluster.
 
