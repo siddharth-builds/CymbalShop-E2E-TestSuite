@@ -43,13 +43,13 @@ I prioritized clean, maintainable code structures over quick-and-dirty scripts. 
 └── package.json             # Dependencies and NPM scripts
 ```
 ---
-## 🧪 Core Test Coverage
+## Business Impact 
 The test suites are designed to validate actual business logic and edge cases, not just happy paths:
 
-- **End-to-End Checkout Flow:** Automates the complete buying journey, including handling complex form elements (`<select>` dropdowns for dates) and feeding Luhn-valid credit card numbers to ensure the backend `paymentservice` successfully processes orders.
-- **Stateful Cart Manipulation:** Data-driven parameterized tests dynamically inject products into the cart, validate quantity updates, verify shipping calculations, and confirm that the `cartservice` correctly purges session state when emptied.
-- **Currency Conversion Validation:** Tests the `currencyservice` integration by manipulating global navigation preferences and asserting that UI pricing symbols dynamically update (USD to EUR to JPY) without dropping user sessions.
-- **Native API Integration:** Directly hits internal Kubernetes endpoints (`localhost:8080`) to validate JSON/HTML responses and status codes (200, 201, 302 redirects), proving routing works independently of the UI.
+- **Revenue Protection (E2E Checkout):** Automates the complete buying journey, handling complex forms and Luhn-valid credit card processing to ensure the paymentservice never blocks a sale.
+- **Session Reliability (Stateful Cart):** Data-driven parameterized tests inject products, validate dynamic shipping calculations, and confirm precise state purging by the cartservice.
+- **Localization Integrity (Currency Conversion):** Validates that UI pricing symbols dynamically update (USD to EUR to JPY) without dropping user sessions across the currencyservice.
+- **Shift-Left API Testing:** Directly hits internal Kubernetes endpoints (localhost:8080) to validate JSON/HTML responses, proving routing logic works independently of UI rendering.
 
 ---
 
