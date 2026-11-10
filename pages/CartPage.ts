@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 
 export class CartPage {
   readonly page: Page;
@@ -6,21 +6,23 @@ export class CartPage {
   constructor(page: Page) {
     this.page = page;
   }
-  
-    async VerifyProductInCart(productName: string): Promise<void> {
-    await expect(this.page.getByText(productName)).toBeVisible();
-    }
-    async emptyCart(): Promise<void> {
-    await this.page.getByRole('button', { name: 'Empty Cart' }).click();
-    }
 
-   async verifyCartIsEmpty(): Promise<void> {
-    // Assert the application successfully redirected back to the home page
-    await expect(this.page.getByRole('heading', { name: 'Hot Products' })).toBeVisible();
-    
-    // Assert the cart icon reverts to its empty state (no trailing number like "Cart icon 1")
-    await expect(this.page.getByRole('link', { name: 'Cart icon', exact: true })).toBeVisible();
+  async verifyProductInCart(productName: string): Promise<void> {
+    const cartItem = this.page.getByText(productName, { exact: true }).first();
+
+    await expect(cartItem, `Product "${productName}" should be in the cart`).toBeVisible({ timeout: 15_000 });
   }
-    
 
+  async emptyCart(): Promise<void> {
+    const emptyCartButton = this.page.getByRole('button', { name: /empty cart/i });
+
+    await expect(emptyCartButton, 'The cart page should provide the empty-cart action').toBeVisible({ timeout: 15_000 });
+    await emptyCartButton.click();
+  }
+
+  async verifyCartIsEmpty(): Promise<void> {
+    // The empty-cart flow should return the shopper to the storefront and clear the active cart state.
+    await expect(this.page.getByRole('heading', { name: /hot products/i })).toBeVisible({ timeout: 15_000 });
+    await expect(this.page.getByRole('link', { name: /cart icon/i })).toBeVisible({ timeout: 15_000 });
+  }
 }

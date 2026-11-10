@@ -1,13 +1,12 @@
-// api/UsersApiClient.ts
 import { APIRequestContext, APIResponse } from '@playwright/test';
 
 export class UsersApiClient {
   readonly request: APIRequestContext;
   readonly baseUrl: string;
 
-  constructor(request: APIRequestContext) {
+  constructor(request: APIRequestContext, baseUrl = process.env.REQRES_BASE_URL || 'https://reqres.in') {
     this.request = request;
-    this.baseUrl = process.env.REQRES_BASE_URL || 'https://reqres.in';
+    this.baseUrl = baseUrl;
   }
 
   async getUsers(): Promise<APIResponse> {
@@ -16,7 +15,7 @@ export class UsersApiClient {
 
   async createUser(name: string, job: string): Promise<APIResponse> {
     return await this.request.post(`${this.baseUrl}/api/users`, {
-      data: { name, job }
+      data: { name, job },
     });
   }
 }
