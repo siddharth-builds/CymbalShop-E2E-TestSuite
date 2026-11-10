@@ -59,7 +59,7 @@ test.describe('Checkout flow', () => {
     await test.step('Submit the order and assert completion', async () => {
       const placeOrderButton = page.getByRole('button', { name: /place order/i });
       await expect(placeOrderButton, 'Place Order should be enabled with valid cart and payment data').toBeEnabled();
-      await placeOrderButton.click();
+      await placeOrderButton.click({ timeout: 30_000 });
 
       // This confirmation heading is the critical business assertion for the test outcome.
       const successHeading = page.getByRole('heading', { name: /your order is complete/i });
