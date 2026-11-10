@@ -9,7 +9,7 @@ test.describe('Checkout flow', () => {
       street: '123 QA Automation Ln',
       city: 'Tech City',
       state: 'CA',
-      country: 'United States',
+      country: 'Malasia',
       zipCode: '10001',
       cardNumber: '4111111111111111',
       expiryMonth: '12',
