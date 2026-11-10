@@ -19,6 +19,10 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     // Removed global extraHTTPHeaders so public APIs like ReqRes won't receive the mock token
+  
+    launchOptions: {
+      args: ['--start-maximized'],
+    },
   },
   reporter: 'html',
 });
