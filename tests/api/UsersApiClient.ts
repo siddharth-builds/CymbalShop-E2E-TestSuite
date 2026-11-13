@@ -1,5 +1,7 @@
 import { APIRequestContext, APIResponse } from '@playwright/test';
 
+declare const process: { env: { REQRES_BASE_URL?: string } };
+
 export class UsersApiClient {
   readonly request: APIRequestContext;
   readonly baseUrl: string;

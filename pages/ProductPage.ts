@@ -15,6 +15,6 @@ export class ProductPage {
 
     // Wait for app state to move into the cart flow before continuing.
     await this.page.waitForURL(/.*cart/i, { timeout: 15_000 });
-    await expect(this.page).toHaveURL(/.*cart/i, 'The shopper should be redirected to the cart after adding an item');
+    await expect(this.page, 'The shopper should be redirected to the cart after adding an item').toHaveURL(/.*cart/i);
   }
 }

@@ -4,7 +4,10 @@ export class ProductsApiClient {
   readonly request: APIRequestContext;
   readonly baseUrl: string;
 
-  constructor(request: APIRequestContext, baseUrl = process.env.BASE_URL || 'http://localhost:8080') {
+  constructor(
+    request: APIRequestContext,
+    baseUrl = (globalThis as { process?: { env?: { BASE_URL?: string } } }).process?.env?.BASE_URL || 'http://localhost:8080',
+  ) {
     this.request = request;
     this.baseUrl = baseUrl;
   }
