@@ -252,10 +252,10 @@ This repository is a practical, test-first validation layer for a microservices-
 Running tests locally is easy. Scaling them in CI/CD is hard.
 Get the Pro Playwright Boilerplate to unlock:
 
-Automated ephemeral Kubernetes (Kind) clusters in GitHub Actions
+- Automated ephemeral Kubernetes (Kind) clusters in GitHub Actions
 
-Dockerized execution environments
+- Dockerized execution environments
 
-Gemini 1.5 API scripts for automated log triage
+- Gemini 1.5 API scripts for automated log triage
 
 Get the Pro Boilerplate on Gumroad
