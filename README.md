@@ -245,3 +245,17 @@ This project is provided for testing and automation use within the repository co
 ## Summary
 
 This repository is a practical, test-first validation layer for a microservices-based storefront. It gives you a reliable way to catch regressions in user flows, backend contract behavior, and distributed state transitions before they affect customers.
+
+---
+
+## Need to scale this for production?
+Running tests locally is easy. Scaling them in CI/CD is hard.
+Get the Pro Playwright Boilerplate to unlock:
+
+Automated ephemeral Kubernetes (Kind) clusters in GitHub Actions
+
+Dockerized execution environments
+
+Gemini 1.5 API scripts for automated log triage
+
+Get the Pro Boilerplate on Gumroad
